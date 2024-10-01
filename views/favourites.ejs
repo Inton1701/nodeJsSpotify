@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/header') %>
+        <title>iSputipay</title>
+</head>
+<style>
+    .custom-table {
+        background-color: transparent;
+        table-layout: fixed;
+    }
+
+
+    .custom-table thead th {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+
+    .custom-table tbody tr {
+        background-color: transparent !important;
+        color: #1DB954 !important;
+    }
+
+    .custom-table tbody td {
+        color: #1DB954 !important;
+
+
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: #30353a !important;
+        color: white;
+    }
+
+    .custom-hover {
+        background-color: #212529 !important;
+        color: white;
+    }
+
+    .custom-hover :hover {
+        background-color: #30353a !important;
+        color: white;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        border-color: #30353a;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container-fluid d-flex flex-column">
+        <div class="row">
+            <%- include('partials/navbar') %>
+        </div>
+        <div class="row w-100 mt-3 justify-content-center" style="height: 500px;">
+            <div class="col-lg-2 col-md-2 col-12 ">
+                <%- include('partials/sidebar') %>
+            </div>
+            <div class="col-lg-6 col-md-9 col-12 bg-dark rounded-2 ms-1 me-2">
+                <div class="row p-3 h-auto border-light border-2">
+                    <div class="col-12 mb-3">
+                        <button class="text-light btn-search rounded float-end" style="width: auto;"
+                            data-bs-toggle="modal" data-bs-target="#addSongModal">
+                            <i class="fas fa-plus text-light"></i> Add Song
+                        </button>
+                    </div>
+                    <div class="col-12" style="max-height: 400px; overflow-y: auto;">
+
+                        <table class="table-responsive bg-dark w-100 custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Song Title</th>
+                                    <th>Banner</th>
+                                    <th>Artist</th>
+                                    <th>Genre</th>
+                                    <th>Play</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <% data.forEach((songs, index)=> { %>
+                                <tr>
+                                    <td
+                                        style="overflow: hidden; max-width: 100px; white-space: nowrap; text-overflow: ellipsis;">
+                                        <%= songs.title %>
+                                    </td>
+                                    <td><img src="<%= songs.banner.replace('public/','')%>" alt="" class="img-fluid"
+                                            style="width: 50px; height: 50px;"></td>
+                                    <td>
+                                        <%= songs.artist %>
+                                    </td>
+                                    <td>
+                                        <%= songs.genre %>
+                                    </td>
+                                    <td class="ps-1"><button onclick="selectSong('<%= index %>')"
+                                            class="rounded-5 ps-2 bg-spotify border-0"><i
+                                                class="fas fa-play"></i></button></i></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="" data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="color: #1DB954; background-color: transparent; border: none;">
+                                                <div class="dot-container" style="display: flex; align-items: center;">
+                                                    <i class="fas fa-circle"
+                                                        style="margin-right: 5px; color: #1DB954; font-size: 5px;"></i>
+                                                    <i class="fas fa-circle"
+                                                        style="margin-right: 5px; color: #1DB954; font-size: 5px;"></i>
+                                                    <i class="fas fa-circle"
+                                                        style="color: #1DB954; font-size: 5px;"></i>
+                                                </div>
+                                            </button>
+                                            <ul class="dropdown-menu custom-hover">
+                                                <li><a href="deleteFavourites/<%= songs.song_id %>"
+                                                    class="dropdown-item text-decoration-none"
+                                                    style="color: #1DB954;">Remove Favourites</a></li>
+                                                <li><a href="deleteSong/<%= songs.song_id %>"
+                                                        class="dropdown-item text-decoration-none"
+                                                        style="color: #1DB954;">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class=" col-lg-3 col-md-12 col-9 bg-dark rounded-2 mx-2 mt-lg-0 mt-3 d-lg-inline d-none ">
+                <%- include('musicBanner') %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid z-3 position-absolute">
+                <div class="row">
+                    <%- include('partials/musicPlayer') %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('modals/modals') %>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

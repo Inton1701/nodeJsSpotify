@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to iSputipay</title>
+    <%- include('partials/header') %>
+    <style>
+        /* Spotify-inspired theme */
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .btn-spotify {
+            background-color: #1DB954;
+            color: white;
+            border: none;
+            font-weight: bold;
+            border-radius: 25px;
+            padding: 12px 25px;
+        }
+
+        .btn-spotify:hover {
+            background-color: #1ed760;
+        }
+
+        .hero-section {
+            background: linear-gradient(145deg, #1DB954, #121212);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .features-section {
+            padding: 50px 0;
+        }
+
+        .feature-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #30353a;
+            margin-bottom: 30px;
+        }
+
+        .feature-box i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #1DB954;
+        }
+
+        .feature-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-box p {
+            font-size: 1rem;
+            color: #b3b3b3;
+        }
+
+        .footer {
+            padding: 20px 0;
+            background-color: #181818;
+            text-align: center;
+            color: white;
+        }
+
+        .footer a {
+            color: #1DB954;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <img src="images/spotify-logo.png" width="400px" height="400px" alt="">
+            <h1>Welcome to i S p u t i p l <i class="fs-1 fas fa-play spotify-color"></i> y</h1>
+            <p>By: Ariston Magboo Jr.</p>
+            <a href="/mySongs" class="btn btn-spotify">Lezz Goo !</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section container">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-box">
+                    <i class="fas fa-music"></i>
+                    <h4>Discover Music</h4>
+                    <p>Mag Upload ka ng music mo</p><br>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-box">
+                    <i class="fas fa-heart"></i>
+                    <h4>Get Your Favourites</h4>
+                    <p>Ilagay Mo sa Favourites yung gusto mo</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-box">
+                    <i class="fas fa-play-circle"></i>
+                    <h4>Easy Playback</h4>
+                    <p>Pindutin mo lang yung play kapag gusto mo iplay yung music </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Powered by Oremco. Built with love for music haters.</p>
+        </div>
+    </footer>
+
+
+    <%- include('partials/footer') %>
+</body>
+
+</html>

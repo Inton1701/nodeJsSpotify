@@ -1,0 +1,131 @@
+<!-- Music Player -->
+<style>
+  .song-info {
+    width: 200px;           
+    white-space: nowrap;    
+    overflow: hidden;        
+    text-overflow: ellipsis; 
+}
+</style>
+<div class="footer-player rounded-1 h bg-dark">
+  <div class="song-info">
+    <p id="footer-song-title">Song Title - Artist</p>
+  </div>
+  <div class="controls bg-dark">
+ 
+    <button onclick="prevSong()" style="background-color: transparent; border: none;">
+      <i class="fas fa-step-backward mx-3"></i>
+    </button>
+    <button id="play-pause-button" onclick="playPause()" style="background-color: transparent; border: none;">
+      <i class="fas fa-play mx-3 "></i>
+    </button>
+    <button onclick="nextSong()" style="background-color: transparent; border: none;">
+      <i class="fas fa-step-forward mx-3"></i>
+    </button>
+  </div>
+  <div class="volume-control controls">
+    <i class="fas fa-volume-down"></i>
+    <input type="range" min="0" max="100" step="1" id="volume-control" style="width: 100px;" oninput="setVolume(this.value)">
+    <i class="fas fa-volume-up"></i>
+  </div>
+</div>
+
+
+<audio id="audio-player">
+  <source id="song-source" src="" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+
+
+  const audioPlayer = document.getElementById('audio-player');
+  const songTitleElement = document.getElementById('footer-song-title');
+  const playPauseButton = document.getElementById('play-pause-button');
+  const playIcon = 'fas fa-play mx-3';
+  const pauseIcon = 'fas fa-pause mx-3';
+
+ //get Song index
+  function loadSong(index) {
+    const song = songs[index];
+    document.getElementById('song-source').src = `/${song.song_path}`;
+    songTitleElement.textContent = `${song.title} - ${song.artist}`;
+    audioPlayer.load();
+  }
+
+//Play and Pause
+  function playPause() {
+    if (audioPlayer.paused) {
+      audioPlayer.play();
+      playPauseButton.innerHTML = `<i class="${pauseIcon}"></i>`;
+    } else {
+      audioPlayer.pause();
+      playPauseButton.innerHTML = `<i class="${playIcon}"></i>`;
+    }
+  }
+
+  // Play the next song
+  function nextSong() {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    loadSong(currentSongIndex);
+    audioPlayer.play();
+    playPauseButton.innerHTML = `<i class="${pauseIcon}"></i>`;
+  }
+
+  // Play the previous song
+  function prevSong() {
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    loadSong(currentSongIndex);
+    audioPlayer.play();
+    playPauseButton.innerHTML = `<i class="${pauseIcon}"></i>`;
+  }
+
+  // Set the volume for the audio player
+  function setVolume(value) {
+    audioPlayer.volume = value / 100;
+  }
+
+  // Load the first song on page load
+  window.onload = function() {
+    loadSong(currentSongIndex);
+  };
+
+  const songs = [
+    <% data.forEach(songs => { %>
+    {
+        title: "<%= songs.title %>",
+        artist: "<%= songs.artist %>",
+        genre: "<%= songs.genre %>",
+        banner: "<%= songs.banner.replace('public/','')%>",
+        song_path: "<%= songs.song_path.replace('public/','') %>",
+        released_date: "<%= songs.released_date %>"
+    },
+    <% }) %>
+];
+
+// Function to handle song selection
+function selectSong(index) {
+    const song = songs[index];
+
+    // Update the music banner
+    document.querySelector('.music-banner img').src = song.banner;
+    document.querySelector('.music-banner h5').textContent = song.title;
+    document.querySelector('.music-banner .genre-info').textContent = `Genre: ${song.genre}`;
+    document.querySelector('.music-banner .date-released').textContent = `Released Date: ${song.released_date}`;
+    document.querySelector('.music-banner .artist-info').textContent = `Artist: ${song.artist}`;
+
+    // Update the music player
+    document.getElementById('song-source').src = `/${song.song_path}`;
+    document.getElementById('footer-song-title').textContent = `${song.title} - ${song.artist}`;
+    audioPlayer.load();
+    audioPlayer.play();
+    playPauseButton.innerHTML = `<i class="${pauseIcon}"></i>`;
+}
+
+// Initialize the first song when page loads
+window.onload = function() {
+    currentSongIndex = 0;
+    selectSong(currentSongIndex);
+};
+
+</script>
